@@ -1,6 +1,6 @@
 Name: po4a
-Version: 0.29
-Release: 3%{?dist}
+Version: 0.32
+Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 License: GPL
@@ -68,6 +68,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Aug 20 2007 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.32-4
+- Update to 0.32.
+- fixes a possible race condition under /tmp (no CVE yet).
+
 * Thu Dec 28 2006 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.29-3
 - Update to 0.29.
 
