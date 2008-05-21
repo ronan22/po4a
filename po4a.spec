@@ -1,9 +1,10 @@
 Name: po4a
 Version: 0.32
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
-License: GPL
+# Nothing in the source tree specifies a version of the GPL.
+License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
 Source0: http://alioth.debian.org/download.php/1798/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -68,6 +69,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed May 21 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.32-5
+- fix license tag
+
 * Mon Aug 20 2007 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.32-4
 - Update to 0.32.
 - fixes a possible race condition under /tmp (no CVE yet).
