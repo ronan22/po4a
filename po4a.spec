@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.32
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
@@ -46,7 +46,7 @@ for file in  %{buildroot}%{_mandir}/*/man*/*.gz; do
   mv -f $file.new $file
 done
 
-%check || :
+%check
 # check is currently broken due to absence of data-23/fonts
 #./Build test verbose=1
 
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 22 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-7
+- Remove || : in %%check due to rpm not accepting it anymore.
+
 * Thu May 22 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-6
 - Add: "Requires: perl(:MODULE_COMPAT_...)" (BZ 442548).
 
