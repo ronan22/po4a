@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.32
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
@@ -14,6 +14,8 @@ BuildRequires: perl(Text::WrapI18N)
 BuildRequires: perl(SGMLS) >= 1.03ii
 BuildRequires: perl(Locale::gettext) >= 1.01, gettext
 BuildRequires: perl(Term::ReadKey)
+
+Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: gettext
 
 %description
@@ -69,6 +71,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 22 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-6
+- Add: "Requires: perl(:MODULE_COMPAT_...)" (BZ 442548).
+
 * Wed May 21 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.32-5
 - fix license tag
 
