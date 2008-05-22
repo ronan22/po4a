@@ -1,9 +1,10 @@
 Name: po4a
 Version: 0.32
-Release: 4%{?dist}
+Release: 6%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
-License: GPL
+# Nothing in the source tree specifies a version of the GPL.
+License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
 Source0: http://alioth.debian.org/download.php/1798/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -13,6 +14,8 @@ BuildRequires: perl(Text::WrapI18N)
 BuildRequires: perl(SGMLS) >= 1.03ii
 BuildRequires: perl(Locale::gettext) >= 1.01, gettext
 BuildRequires: perl(Term::ReadKey)
+
+Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: gettext
 
 %description
@@ -68,6 +71,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 22 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-6
+- Add: "Requires: perl(:MODULE_COMPAT_...)" (BZ 442548).
+
+* Wed May 21 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 0.32-5
+- fix license tag
+
 * Mon Aug 20 2007 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.32-4
 - Update to 0.32.
 - fixes a possible race condition under /tmp (no CVE yet).
