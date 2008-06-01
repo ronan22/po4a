@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.32
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
@@ -59,7 +59,7 @@ rm -rf %{buildroot}
 %doc README* COPYING TODO
 %{_bindir}/po4a*
 %{_bindir}/msguntypot
-%{perl_vendorlib}/Locale/Po4a
+%{perl_vendorlib}/Locale
 %{_mandir}/man1/po4a*.1*
 %{_mandir}/man1/msguntypot.1*
 %{_mandir}/man3/Locale::Po4a::*.3pm*
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Jun 01 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-8
+- Let package own %%{perl_vendorlib}/Locale (BZ 449258).
+
 * Thu May 22 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-7
 - Remove || : in %%check due to rpm not accepting it anymore.
 
