@@ -1,6 +1,6 @@
 Name: po4a
-Version: 0.32
-Release: 8%{?dist}
+Version: 0.34
+Release: 9%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
@@ -64,13 +64,16 @@ rm -rf %{buildroot}
 %{_mandir}/man1/msguntypot.1*
 %{_mandir}/man3/Locale::Po4a::*.3pm*
 %{_mandir}/man7/po4a.7*
-%{_mandir}/*/man1/po4a*.1p*
+%{_mandir}/*/man1/po4a*.1*
 %{_mandir}/*/man1/msguntypot.1*
 %{_mandir}/*/man3/Locale::Po4a::*.3pm*
 %{_mandir}/*/man7/po4a.7*
 
 
 %changelog
+* Sun Aug 24 2008 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.34-9
+- Update to 0.34.
+
 * Sun Jun 01 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-8
 - Let package own %%{perl_vendorlib}/Locale (BZ 449258).
 
