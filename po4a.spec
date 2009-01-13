@@ -1,12 +1,12 @@
 Name: po4a
 Version: 0.34
-Release: 9%{?dist}
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
-Source0: http://alioth.debian.org/download.php/1798/%{name}-%{version}.tar.gz
+Source0: http://alioth.debian.org/download.php/2518/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -14,6 +14,10 @@ BuildRequires: perl(Text::WrapI18N)
 BuildRequires: perl(SGMLS) >= 1.03ii
 BuildRequires: perl(Locale::gettext) >= 1.01, gettext
 BuildRequires: perl(Term::ReadKey)
+
+# Required by the tests.
+BuildRequires: perl(Test::More)
+BuildRequires: docbook-dtds
 
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: gettext
@@ -35,8 +39,9 @@ rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 find %{buildroot} -type f \( -name .packlist -or -name perllocal.pod \
   -or \( -name '*.bs' -a -empty \) \) -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} \;
-chmod -R u+w %{buildroot}
+find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
+
+%{_fixperms} %{buildroot}
 
 %find_lang %{name}
 
@@ -47,8 +52,8 @@ for file in  %{buildroot}%{_mandir}/*/man*/*.gz; do
 done
 
 %check
-# check is currently broken due to absence of data-23/fonts
-#./Build test verbose=1
+# The tests are unclean
+./Build test ||:
 
 %clean
 rm -rf %{buildroot}
@@ -71,7 +76,14 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Aug 24 2008 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.34-9
+* Tue Jan 13 2009 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-1
+- Reset %%release.
+- Add BuildRequires: perl(Test::More), BuildRequires: docbook-dtds.
+- Activate tests.
+- Fix Source0:-URL.
+- Spec file cosmetics.
+
+* Sun Aug 24 2008 Axel Thimm <Axel.Thimm@ATrpms.net>
 - Update to 0.34.
 
 * Sun Jun 01 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-8
