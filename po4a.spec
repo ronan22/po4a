@@ -1,12 +1,12 @@
 Name: po4a
-Version: 0.34
-Release: 1%{?dist}
+Version: 0.35
+Release: 11%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
-Source0: http://alioth.debian.org/download.php/2518/%{name}-%{version}.tar.gz
+Source0: http://alioth.debian.org/frs/download.php/2809/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -76,14 +76,16 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Jan 13 2009 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-1
-- Reset %%release.
+* Sat Feb 14 2009 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.35-11
+- Update to 0.35.
+
+* Tue Jan 13 2009 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-10
 - Add BuildRequires: perl(Test::More), BuildRequires: docbook-dtds.
 - Activate tests.
 - Fix Source0:-URL.
 - Spec file cosmetics.
 
-* Sun Aug 24 2008 Axel Thimm <Axel.Thimm@ATrpms.net>
+* Sun Aug 24 2008 Axel Thimm <Axel.Thimm@ATrpms.net> - 0.34-9
 - Update to 0.34.
 
 * Sun Jun 01 2008 Ralf Corsépius <rc040203@freenet.de> - 0.32-8
