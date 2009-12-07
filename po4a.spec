@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.35
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Dec  7 2009 Stepan Kasal <skasal@redhat.com> - 0.35-14
+- rebuild against perl 5.10.1
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.35-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
