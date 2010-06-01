@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.35
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jun 02 2010 Marcela Maslanova <mmaslano@redhat.com> - 0.35-15
+- Mass rebuild with perl-5.12.0
+
 * Mon Dec  7 2009 Stepan Kasal <skasal@redhat.com> - 0.35-14
 - rebuild against perl 5.10.1
 
