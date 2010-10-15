@@ -1,26 +1,41 @@
 Name: po4a
-Version: 0.35
-Release: 15%{?dist}
+Version: 0.40.1
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 # Nothing in the source tree specifies a version of the GPL.
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
-Source0: http://alioth.debian.org/frs/download.php/2809/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+Source0: http://alioth.debian.org/frs/download.php/3341/%{name}-v%{version}.tar.gz
+Patch0: %{name}-%{version}.diff
+
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
 BuildRequires: perl(Text::WrapI18N)
 BuildRequires: perl(SGMLS) >= 1.03ii
-BuildRequires: perl(Locale::gettext) >= 1.01, gettext
+BuildRequires: perl(Locale::gettext) >= 1.01
 BuildRequires: perl(Term::ReadKey)
+BuildRequires: /usr/bin/xsltproc
+BuildRequires: gettext
+BuildRequires: docbook-style-xsl
+
+# Requires a pod2man which support --utf8
+# Seemingling added in perl-5.10.1
+BuildRequires: perl >= 4:5.10.1
 
 # Required by the tests.
 BuildRequires: perl(Test::More)
-BuildRequires: docbook-dtds
+BuildRequires: /usr/bin/kpsewhich
 
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: gettext
+
+# Optional, used by Locale/Po4a/TeX.pm
+# Requires: /usr/bin/kpsewhich
+# Optional, used by po4a-build
+# Requires: /usr/bin/xsltproc
+# Optional, but package is quite useless without
+Requires: perl(Locale::gettext) >= 1.01
 
 %description
 The po4a (po for anything) project goal is to ease translations (and
@@ -28,14 +43,20 @@ more interestingly, the maintenance of translations) using gettext
 tools on areas where they were not expected like documentation.
 
 %prep
-%setup -q
+%setup -q -n %{name}-v%{version}
+%patch0 -p1
+# Get rid of /usr/bin/env
+sed -i -e 's,#! /usr/bin/env perl,#!/usr/bin/perl,' \
+po4a po4a-gettextize po4a-translate po4a-updatepo po4a-normalize scripts/msguntypot
 
 %build
-perl Build.PL --installdirs vendor
-./Build
+# Propagate %%{_prefix}
+sed -i -e 's,^prefix =.*$,prefix = %{_prefix},' po/bin/Makefile
+# Install to vendor dirs
+sed -i -e 's,perl Build.PL,perl Build.PL --installdirs vendor,' Makefile
+make
 
 %install
-rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 find %{buildroot} -type f \( -name .packlist -or -name perllocal.pod \
   -or \( -name '*.bs' -a -empty \) \) -exec rm -f {} \;
@@ -45,15 +66,8 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %find_lang %{name}
 
-# ugly fix to get the translated man pages in utf-8
-for file in  %{buildroot}%{_mandir}/*/man*/*.gz; do
-  gunzip -c $file | iconv -f latin1 -t utf8 | gzip -c > $file.new
-  mv -f $file.new $file
-done
-
 %check
-# The tests are unclean
-./Build test ||:
+./Build test
 
 %clean
 rm -rf %{buildroot}
@@ -67,15 +81,26 @@ rm -rf %{buildroot}
 %{perl_vendorlib}/Locale
 %{_mandir}/man1/po4a*.1*
 %{_mandir}/man1/msguntypot.1*
-%{_mandir}/man3/Locale::Po4a::*.3pm*
+%{_mandir}/man3/Locale::Po4a::*.3*
+%{_mandir}/man5/po4a-build.conf*.5*
+%{_mandir}/man7/po4a-runtime.7*
 %{_mandir}/man7/po4a.7*
 %{_mandir}/*/man1/po4a*.1*
 %{_mandir}/*/man1/msguntypot.1*
-%{_mandir}/*/man3/Locale::Po4a::*.3pm*
+%{_mandir}/*/man3/Locale::Po4a::*.3*
+%{_mandir}/*/man5/po4a-build.conf.5*
 %{_mandir}/*/man7/po4a.7*
-
+%{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Fri Oct 15 2010 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.40.1-1
+- Upstream update.
+- Add po4a-v0.40.1.diff (add missing file t/compare-po.pl)
+- Make testsuite working.
+- Spec overhaul.
+- Eliminate /usr/bin/env perl.
+- Require perl >= 5.10.1
+
 * Wed Jun 02 2010 Marcela Maslanova <mmaslano@redhat.com> - 0.35-15
 - Mass rebuild with perl-5.12.0
 
