@@ -1,13 +1,11 @@
 Name: po4a
-Version: 0.40.1
+Version: 0.41
 Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
-# Nothing in the source tree specifies a version of the GPL.
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
-Source0: http://alioth.debian.org/frs/download.php/3341/%{name}-v%{version}.tar.gz
-Patch0: %{name}-%{version}.diff
+Source0: http://alioth.debian.org/frs/download.php/3472/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -43,26 +41,17 @@ more interestingly, the maintenance of translations) using gettext
 tools on areas where they were not expected like documentation.
 
 %prep
-%setup -q -n %{name}-v%{version}
-%patch0 -p1
-# Get rid of /usr/bin/env
-sed -i -e 's,#! /usr/bin/env perl,#!/usr/bin/perl,' \
-po4a po4a-gettextize po4a-translate po4a-updatepo po4a-normalize scripts/msguntypot
+%setup -q -n %{name}-%{version}
 
 %build
-# Propagate %%{_prefix}
-sed -i -e 's,^prefix =.*$,prefix = %{_prefix},' po/bin/Makefile
-# Install to vendor dirs
-sed -i -e 's,perl Build.PL,perl Build.PL --installdirs vendor,' Makefile
-make
+%{__perl} ./Build.PL installdirs=vendor
+./Build
 
 %install
-make install DESTDIR=%{buildroot}
-find %{buildroot} -type f \( -name .packlist -or -name perllocal.pod \
-  -or \( -name '*.bs' -a -empty \) \) -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
+./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
+find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
-%{_fixperms} %{buildroot}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %find_lang %{name}
 
@@ -93,6 +82,11 @@ rm -rf %{buildroot}
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Wed Dec 08 2010 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.41-1
+- Upstream update.
+- Reflect upstream having changed to Module::Build.
+- Remove po4a-0.40.1.diff.
+
 * Fri Oct 15 2010 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.40.1-1
 - Upstream update.
 - Add po4a-v0.40.1.diff (add missing file t/compare-po.pl)
