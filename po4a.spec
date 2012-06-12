@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.41
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 License: GPL+
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Tue Jun 12 2012 Petr Pisar <ppisar@redhat.com> - 0.41-5
+- Perl 5.16 rebuild
+
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.41-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
