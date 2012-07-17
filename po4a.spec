@@ -1,11 +1,11 @@
 Name: po4a
-Version: 0.41
-Release: 5%{?dist}
+Version: 0.42
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
-Source0: http://alioth.debian.org/frs/download.php/3472/%{name}-%{version}.tar.gz
+Source0: http://alioth.debian.org/frs/download.php/3723/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -82,6 +82,9 @@ rm -rf %{buildroot}
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Wed Jul 18 2012 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.42-1
+- Upstream update.
+
 * Tue Jun 12 2012 Petr Pisar <ppisar@redhat.com> - 0.41-5
 - Perl 5.16 rebuild
 
