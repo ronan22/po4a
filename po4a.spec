@@ -1,11 +1,12 @@
 Name: po4a
 Version: 0.42
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 Group: Applications/System
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
 Source0: http://alioth.debian.org/frs/download.php/3723/%{name}-%{version}.tar.gz
+Patch0: 0001-Remove-defined-anachronism.patch
 
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -42,6 +43,7 @@ tools on areas where they were not expected like documentation.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 %build
 %{__perl} ./Build.PL installdirs=vendor
@@ -57,9 +59,6 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
 %check
 ./Build test
-
-%clean
-rm -rf %{buildroot}
 
 
 %files -f %{name}.lang
@@ -82,6 +81,10 @@ rm -rf %{buildroot}
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Mon Mar 11 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.42-3
+- Add 0001-Remove-defined-anachronism.patch.
+- Modernize spec.
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
