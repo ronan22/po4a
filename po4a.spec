@@ -1,12 +1,14 @@
 Name: po4a
-Version: 0.42
-Release: 3%{?dist}
+Version: 0.44
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
-Group: Applications/System
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
+
 Source0: http://alioth.debian.org/frs/download.php/3723/%{name}-%{version}.tar.gz
 Patch0: 0001-Remove-defined-anachronism.patch
+# Patch sent upstream on 2013-04-17.
+Patch1: po4a-0.44-use-tempfile-correctly.patch
 
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -44,6 +46,7 @@ tools on areas where they were not expected like documentation.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__perl} ./Build.PL installdirs=vendor
@@ -62,7 +65,6 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc README* COPYING TODO
 %{_bindir}/po4a*
 %{_bindir}/msguntypot
@@ -70,8 +72,8 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/man1/po4a*.1*
 %{_mandir}/man1/msguntypot.1*
 %{_mandir}/man3/Locale::Po4a::*.3*
-%{_mandir}/man5/po4a-build.conf*.5*
-%{_mandir}/man7/po4a-runtime.7*
+#%{_mandir}/man5/po4a-build.conf*.5*
+#%{_mandir}/man7/po4a-runtime.7*
 %{_mandir}/man7/po4a.7*
 %{_mandir}/*/man1/po4a*.1*
 %{_mandir}/*/man1/msguntypot.1*
@@ -81,6 +83,13 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Wed Apr 17 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-1
+- New upstream version 0.44.
+- Fix incorrect use of File::Temp->tempfile (RHBZ#953066).
+- Tidy up the spec file.
+- po4a-build.conf.5 and po4a-runtime.7 man pages are no longer
+  installed in the English version for some (unknown) reason.
+
 * Mon Mar 11 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.42-3
 - Add 0001-Remove-defined-anachronism.patch.
 - Modernize spec.
