@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.44
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
@@ -83,6 +83,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Thu Jul 18 2013 Petr Pisar <ppisar@redhat.com> - 0.44-2
+- Perl 5.18 rebuild
+
 * Wed Apr 17 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-1
 - New upstream version 0.44.
 - Fix incorrect use of File::Temp->tempfile (RHBZ#953066).
