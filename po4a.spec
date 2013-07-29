@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.44
-Release: 4%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
@@ -9,8 +9,6 @@ Source0: http://alioth.debian.org/frs/download.php/3723/%{name}-%{version}.tar.g
 Patch0: 0001-Remove-defined-anachronism.patch
 # Patch sent upstream on 2013-04-17.
 Patch1: po4a-0.44-use-tempfile-correctly.patch
-# Patch sent upstream on 2013-07-29.
-Patch2: po4a-0.44-run-po4a-from-local-dir.patch
 
 BuildArch: noarch
 BuildRequires: perl(Module::Build)
@@ -49,7 +47,6 @@ tools on areas where they were not expected like documentation.
 %setup -q -n %{name}-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__perl} ./Build.PL installdirs=vendor
@@ -91,9 +88,8 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
-* Mon Jul 29 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-4
+* Mon Jul 29 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-3
 - Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
-- When building, run po4a from local directory, not installed copy.
 
 * Thu Jul 18 2013 Petr Pisar <ppisar@redhat.com> - 0.44-2
 - Perl 5.18 rebuild
