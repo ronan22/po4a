@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.44
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
@@ -56,6 +56,11 @@ tools on areas where they were not expected like documentation.
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
+# Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
+%{__perl} -p -i -e 's,#!\s*/usr/bin/env perl,#!%{_bindir}/perl,' \
+  $(find $RPM_BUILD_ROOT -type f -executable |
+    xargs grep -l "/usr/bin/env perl")
+
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %find_lang %{name}
@@ -83,6 +88,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Mon Jul 29 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-3
+- Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
+
 * Thu Jul 18 2013 Petr Pisar <ppisar@redhat.com> - 0.44-2
 - Perl 5.18 rebuild
 
