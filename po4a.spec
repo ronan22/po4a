@@ -1,33 +1,36 @@
 Name: po4a
 Version: 0.44
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
 
-Source0: http://alioth.debian.org/frs/download.php/3723/%{name}-%{version}.tar.gz
+Source0: http://alioth.debian.org/frs/download.php/3786/%{name}-%{version}.tar.gz
 Patch0: 0001-Remove-defined-anachronism.patch
 # Patch sent upstream on 2013-04-17.
 Patch1: po4a-0.44-use-tempfile-correctly.patch
 
 BuildArch: noarch
-BuildRequires: perl(Module::Build)
-BuildRequires: perl(Text::WrapI18N)
-BuildRequires: perl(SGMLS) >= 1.03ii
 BuildRequires: perl(Locale::gettext) >= 1.01
-BuildRequires: perl(Term::ReadKey)
+BuildRequires: perl(Module::Build)
 BuildRequires: perl(Pod::Parser)
+BuildRequires: perl(SGMLS) >= 1.03ii
+BuildRequires: perl(Term::ReadKey)
+BuildRequires: perl(Text::WrapI18N)
+BuildRequires: perl(Unicode::GCString)
 BuildRequires: /usr/bin/xsltproc
 BuildRequires: gettext
 BuildRequires: docbook-style-xsl
 
-# Requires a pod2man which support --utf8
-# Seemingling added in perl-5.10.1
+# Requires a pod2man which supports --utf8
+# Seemingly added in perl-5.10.1
 BuildRequires: perl >= 4:5.10.1
 
 # Required by the tests.
 BuildRequires: perl(Test::More)
 BuildRequires: /usr/bin/kpsewhich
+# Work-around to texlive-kpseas-bin missing deps 
+BuildRequires: /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: gettext
@@ -49,6 +52,13 @@ tools on areas where they were not expected like documentation.
 %patch0 -p1
 %patch1 -p1
 
+chmod +x scripts/*
+
+# Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
+%{__perl} -p -i -e 's,#!\s*/usr/bin/env perl,#!%{_bindir}/perl,' \
+  $(find . -type f -executable |
+    xargs grep -l "/usr/bin/env perl")
+
 %build
 export PO4AFLAGS="-v -v -v"
 %{__perl} ./Build.PL installdirs=vendor
@@ -58,19 +68,12 @@ export PO4AFLAGS="-v -v -v"
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
-# Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
-%{__perl} -p -i -e 's,#!\s*/usr/bin/env perl,#!%{_bindir}/perl,' \
-  $(find $RPM_BUILD_ROOT -type f -executable |
-    xargs grep -l "/usr/bin/env perl")
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %find_lang %{name}
 
 %check
-# Disabled: broken for unknown reasons in Fedora > 19.
-rm t/24-tex.t
-
 ./Build test
 
 
@@ -93,6 +96,14 @@ rm t/24-tex.t
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Tue Jul 30 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.44-10
+- Add BR: /usr/share/texlive/texmf-dist/web2c/texmf.cnf.
+- Re-enable t/24-tex.t (Cause for breakdown is texlive packing mess).
+- Add BR: perl(Unicode::GCString).
+- Move shebang fixing into %%build.
+- Fix Source0-URL.
+- Spec-file cosmetics.
+
 * Mon Jul 29 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-9
 - Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
 - Increase verbosity of po4a when building to help diagnose build errors.
