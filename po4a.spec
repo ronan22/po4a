@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.44
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
@@ -96,6 +96,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Sat Aug 03 2013 Petr Pisar <ppisar@redhat.com> - 0.44-11
+- Perl 5.18 rebuild
+
 * Tue Jul 30 2013 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.44-10
 - Add BR: /usr/share/texlive/texmf-dist/web2c/texmf.cnf.
 - Re-enable t/24-tex.t (Cause for breakdown is texlive packing mess).
