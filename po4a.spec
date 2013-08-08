@@ -1,11 +1,11 @@
 Name: po4a
 Version: 0.44
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
 
-Source0: http://alioth.debian.org/frs/download.php/3786/%{name}-%{version}.tar.gz
+Source0: http://alioth.debian.org/frs/download.php/file/3786/%{name}-%{version}.tar.gz
 Patch0: 0001-Remove-defined-anachronism.patch
 # Patch sent upstream on 2013-04-17.
 Patch1: po4a-0.44-use-tempfile-correctly.patch
@@ -96,6 +96,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Thu Aug  8 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-12
+- Fix upstream source URL.
+
 * Sat Aug 03 2013 Petr Pisar <ppisar@redhat.com> - 0.44-11
 - Perl 5.18 rebuild
 
