@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.44
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: http://alioth.debian.org/projects/po4a/
@@ -96,6 +96,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.44-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Thu Aug  8 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-12
 - Fix upstream source URL.
 
