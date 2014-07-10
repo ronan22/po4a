@@ -1,14 +1,11 @@
 Name: po4a
-Version: 0.44
-Release: 13%{?dist}
+Version: 0.45
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
-URL: http://alioth.debian.org/projects/po4a/
+URL: https://po4a.alioth.debian.org/
 
-Source0: http://alioth.debian.org/frs/download.php/file/3786/%{name}-%{version}.tar.gz
-Patch0: 0001-Remove-defined-anachronism.patch
-# Patch sent upstream on 2013-04-17.
-Patch1: po4a-0.44-use-tempfile-correctly.patch
+Source0: http://alioth.debian.org/frs/download.php/file/3942/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: perl(Locale::gettext) >= 1.01
@@ -49,8 +46,6 @@ tools on areas where they were not expected like documentation.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
-%patch1 -p1
 
 chmod +x scripts/*
 
@@ -85,8 +80,8 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/man1/po4a*.1*
 %{_mandir}/man1/msguntypot.1*
 %{_mandir}/man3/Locale::Po4a::*.3*
-#%{_mandir}/man5/po4a-build.conf*.5*
-#%{_mandir}/man7/po4a-runtime.7*
+%{_mandir}/man5/po4a-build.conf*.5*
+%{_mandir}/man7/po4a-runtime.7*
 %{_mandir}/man7/po4a.7*
 %{_mandir}/*/man1/po4a*.1*
 %{_mandir}/*/man1/msguntypot.1*
@@ -96,6 +91,13 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Thu Jul 10 2014 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.45-1
+- Upstream update.
+- Remove 0001-Remove-defined-anachronism.patch,
+  po4a-0.44-use-tempfile-correctly.patch.
+- Reflect upstream URL having changed.
+- Reflect Source0-URL having changed.
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.44-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
