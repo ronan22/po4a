@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.45
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -91,6 +91,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Thu Aug 28 2014 Jitka Plesnikova <jplesnik@redhat.com> - 0.45-2
+- Perl 5.20 rebuild
+
 * Thu Jul 10 2014 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.45-1
 - Upstream update.
 - Remove 0001-Remove-defined-anachronism.patch,
