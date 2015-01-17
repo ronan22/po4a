@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.45
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -25,9 +25,9 @@ BuildRequires: perl >= 4:5.10.1
 
 # Required by the tests.
 BuildRequires: perl(Test::More)
-BuildRequires: /usr/bin/kpsewhich
-# Work-around to texlive-kpseas-bin missing deps 
-BuildRequires: /usr/share/texlive/texmf-dist/web2c/texmf.cnf
+# hope texlive-kpseas-bin missing deps was fixed
+# epel7 doesn't have /usr/share/texlive/texmf-dist/web2c/texmf.cnf
+BuildRequires: texlive-kpathsea texlive-kpathsea-bin
 
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: gettext
@@ -91,6 +91,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Sat Jan 17 2015 Sérgio Basto <sergio@serjux.com> - 0.45-3
+- fix buildrequires for epel7
+
 * Thu Aug 28 2014 Jitka Plesnikova <jplesnik@redhat.com> - 0.45-2
 - Perl 5.20 rebuild
 
