@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.45
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -36,8 +36,11 @@ Requires: gettext
 # Requires: /usr/bin/kpsewhich
 # Optional, used by po4a-build
 # Requires: /usr/bin/xsltproc
+%if 0%{?rhel} != 7
+# Until got perl-gettext on epel7
 # Optional, but package is quite useless without
 Requires: perl(Locale::gettext) >= 1.01
+%endif
 
 %description
 The po4a (po for anything) project goal is to ease translations (and
@@ -91,6 +94,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Sun Apr 19 2015 Sérgio Basto <sergio@serjux.com> - 0.45-4
+- Temporary workaround for epel-7 until have perl-gettext in epel-7
+
 * Sat Jan 17 2015 Sérgio Basto <sergio@serjux.com> - 0.45-3
 - fix buildrequires for epel7
 
