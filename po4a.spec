@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.45
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -94,6 +94,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Sat Jun 06 2015 Jitka Plesnikova <jplesnik@redhat.com> - 0.45-5
+- Perl 5.22 rebuild
+
 * Sun Apr 19 2015 Sérgio Basto <sergio@serjux.com> - 0.45-4
 - Temporary workaround for epel-7 until have perl-gettext in epel-7
 
