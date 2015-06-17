@@ -1,11 +1,12 @@
 Name: po4a
 Version: 0.45
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
 
 Source0: http://alioth.debian.org/frs/download.php/file/3942/%{name}-%{version}.tar.gz
+Patch1: po4a-%{version}-perl-5.22-hacks.diff
 
 BuildArch: noarch
 BuildRequires: perl(Locale::gettext) >= 1.01
@@ -49,6 +50,7 @@ tools on areas where they were not expected like documentation.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch1 -p1
 
 chmod +x scripts/*
 
@@ -76,7 +78,8 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
 
 %files -f %{name}.lang
-%doc README* COPYING TODO
+%doc README* TODO
+%license COPYING
 %{_bindir}/po4a*
 %{_bindir}/msguntypot
 %{perl_vendorlib}/Locale
@@ -94,6 +97,11 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Wed Jun 17 2015 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.45-6
+- Add po4a-0.45-perl-5.22-hacks.diff
+  (Address perl-5.22 FTBFS; RHBZ #1230977).
+- Add %%license.
+
 * Sat Jun 06 2015 Jitka Plesnikova <jplesnik@redhat.com> - 0.45-5
 - Perl 5.22 rebuild
 

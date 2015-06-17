@@ -1,0 +1,33 @@
+diff -Naur po4a-0.45.orig/lib/Locale/Po4a/Sgml.pm po4a-0.45/lib/Locale/Po4a/Sgml.pm
+--- po4a-0.45.orig/lib/Locale/Po4a/Sgml.pm	2013-08-21 22:11:04.000000000 +0200
++++ po4a-0.45/lib/Locale/Po4a/Sgml.pm	2015-06-17 09:28:09.334279033 +0200
+@@ -413,7 +413,7 @@
+         $lvl=1;
+         while ($lvl != 0) {
+             # Eat comments in the prolog, since there may be some '>' or '<' in them.
+-            if ($origfile =~ m/^.{$pos}?(<!--.*?-->)/s) {
++            if ($origfile =~ m/^.{$pos}(<!--.*?-->)/s) {
+                 print "Found a comment in the prolog: $1\n" if ($debug{'generic'});
+                 $pos += length($1);
+                 # take care of the line numbers
+@@ -672,7 +672,7 @@
+             }
+         }
+     }
+-    $prolog =~ s/<!--{PO4A-ent-beg-(.*?)}(.*?){PO4A-ent-end}-->/<!ENTITY % $1 SYSTEM "$2">/g;
++    $prolog =~ s/<!--\{PO4A-ent-beg-(.*?)}(.*?){PO4A-ent-end}-->/<!ENTITY % $1 SYSTEM "$2">/g;
+     # Unprotect undefined inclusions, and die of them
+     $prolog =~ s/{PO4A-percent}/%/sg;
+     if ($prolog =~ /%([^;\s]*);/) {
+diff -Naur po4a-0.45.orig/lib/Locale/Po4a/TeX.pm po4a-0.45/lib/Locale/Po4a/TeX.pm
+--- po4a-0.45.orig/lib/Locale/Po4a/TeX.pm	2013-08-21 22:11:04.000000000 +0200
++++ po4a-0.45/lib/Locale/Po4a/TeX.pm	2015-06-17 09:22:04.712690691 +0200
+@@ -1168,7 +1168,7 @@
+ #       environment contains an un-closed bracket)
+         if (   ($closed and ($line =~ /^\s*$/ or
+                              $line =~ /^\s*$RE_VERBATIM\s*$/))
+-            or (in_verbatim(@env) and $line =~ /^\s*\Q$ESCAPE\Eend{$env[-1]}\s*$/)
++            or (in_verbatim(@env) and $line =~ /^\s*\Q$ESCAPE\Eend\{$env[-1]}\s*$/)
+            ) {
+             # An empty line. This indicates the end of the current
+             # paragraph.
