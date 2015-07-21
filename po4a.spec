@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.45
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -9,34 +9,74 @@ Source0: http://alioth.debian.org/frs/download.php/file/3942/%{name}-%{version}.
 Patch1: po4a-%{version}-perl-5.22-hacks.diff
 
 BuildArch: noarch
-BuildRequires: perl(Locale::gettext) >= 1.01
-BuildRequires: perl(Module::Build)
-BuildRequires: perl(Pod::Parser)
-BuildRequires: perl(SGMLS) >= 1.03ii
-BuildRequires: perl(Term::ReadKey)
-BuildRequires: perl(Text::WrapI18N)
-BuildRequires: perl(Unicode::GCString)
-BuildRequires: /usr/bin/xsltproc
-BuildRequires: gettext
+BuildRequires: %{_bindir}/xsltproc
+BuildRequires: coreutils
 BuildRequires: docbook-style-xsl
-
+BuildRequires: findutils
+BuildRequires: grep
 # Requires a pod2man which supports --utf8
 # Seemingly added in perl-5.10.1
 BuildRequires: perl >= 4:5.10.1
+BuildRequires: perl(lib)
+BuildRequires: perl(Encode)
+BuildRequires: perl(ExtUtils::Install)
+BuildRequires: perl(File::Basename)
+BuildRequires: perl(File::Copy)
+BuildRequires: perl(File::Path)
+BuildRequires: perl(File::Spec)
+BuildRequires: perl(File::stat)
+BuildRequires: perl(Module::Build)
+BuildRequires: perl(Pod::Man)
 
-# Required by the tests.
-BuildRequires: perl(Test::More)
+# Run-time:
+BuildRequires: %{_bindir}/nsgmls
+BuildRequires: gettext
+BuildRequires: perl(Carp)
+BuildRequires: perl(Config)
+BuildRequires: perl(Cwd)
+BuildRequires: perl(DynaLoader)
+BuildRequires: perl(Encode::Guess)
+BuildRequires: perl(Exporter)
+BuildRequires: perl(Fcntl)
+BuildRequires: perl(File::Temp)
+BuildRequires: perl(Getopt::Long)
+BuildRequires: perl(Getopt::Std)
+BuildRequires: perl(IO::File)
+BuildRequires: perl(Pod::Parser)
+BuildRequires: perl(Pod::Usage)
+BuildRequires: perl(POSIX)
+BuildRequires: perl(SGMLS) >= 1.03ii
+BuildRequires: perl(strict)
+BuildRequires: perl(subs)
+BuildRequires: perl(Time::Local)
+BuildRequires: perl(vars)
+BuildRequires: perl(warnings)
 # hope texlive-kpseas-bin missing deps was fixed
 # epel7 doesn't have /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-BuildRequires: texlive-kpathsea texlive-kpathsea-bin
+BuildRequires: texlive-kpathsea
+BuildRequires: texlive-kpathsea-bin
 
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+# Optional run-time:
+BuildRequires: perl(I18N::Langinfo)
+BuildRequires: perl(Locale::gettext) >= 1.01
+BuildRequires: perl(Term::ReadKey)
+BuildRequires: perl(Text::WrapI18N)
+BuildRequires: perl(Unicode::GCString)
+
+# Required by the tests:
+BuildRequires: perl(Test::More)
+
+
+Requires: %{_bindir}/nsgmls
+Requires: %{_bindir}/xsltproc
 Requires: gettext
+Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+# hope texlive-kpseas-bin missing deps was fixed
+# epel7 doesn't have /usr/share/texlive/texmf-dist/web2c/texmf.cnf
+Requires: texlive-kpathsea
+Requires: texlive-kpathsea-bin
 
-# Optional, used by Locale/Po4a/TeX.pm
-# Requires: /usr/bin/kpsewhich
-# Optional, used by po4a-build
-# Requires: /usr/bin/xsltproc
+# Optional run-time:
 %if 0%{?rhel} != 7
 # Until got perl-gettext on epel7
 # Optional, but package is quite useless without
@@ -97,6 +137,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Mon Jul 20 2015 Petr Pisar <ppisar@redhat.com> - 0.45-7
+- Specify all dependencies
+
 * Wed Jun 17 2015 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.45-6
 - Add po4a-0.45-perl-5.22-hacks.diff
   (Address perl-5.22 FTBFS; RHBZ #1230977).
