@@ -1,12 +1,11 @@
 Name: po4a
-Version: 0.45
-Release: 7%{?dist}
+Version: 0.47
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
 
-Source0: http://alioth.debian.org/frs/download.php/file/3942/%{name}-%{version}.tar.gz
-Patch1: po4a-%{version}-perl-5.22-hacks.diff
+Source0: http://ftp.debian.org/debian/pool/main/p/po4a/%{name}_%{version}.orig.tar.gz
 
 BuildArch: noarch
 BuildRequires: %{_bindir}/xsltproc
@@ -76,10 +75,9 @@ Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: texlive-kpathsea
 Requires: texlive-kpathsea-bin
 
-# Optional run-time:
-%if 0%{?rhel} != 7
-# Until got perl-gettext on epel7
 # Optional, but package is quite useless without
+# Until have perl-gettext on epel7
+%if 0%{?rhel} != 7
 Requires: perl(Locale::gettext) >= 1.01
 %endif
 
@@ -90,7 +88,6 @@ tools on areas where they were not expected like documentation.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1
 
 chmod +x scripts/*
 
@@ -137,6 +134,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Thu Sep 10 2015 Sérgio Basto <sergio@serjux.com> - 0.47-1
+- Update to 0.47
+
 * Mon Jul 20 2015 Petr Pisar <ppisar@redhat.com> - 0.45-7
 - Specify all dependencies
 
