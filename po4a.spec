@@ -76,7 +76,7 @@ Requires: texlive-kpathsea
 Requires: texlive-kpathsea-bin
 
 # Optional, but package is quite useless without
-# Until have perl-gettext on epel7
+# Until have perl-gettext on epel7 ppc64 (rhbz #1196539)
 %if 0%{?rhel} != 7
 Requires: perl(Locale::gettext) >= 1.01
 %endif
