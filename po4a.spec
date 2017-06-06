@@ -6,6 +6,7 @@ License: GPL+
 URL: https://po4a.alioth.debian.org/
 
 Source0: http://ftp.debian.org/debian/pool/main/p/po4a/%{name}_%{version}.orig.tar.gz
+Patch0:  po4a-0.47-Fix-building-on-Perl-without-dot-in-INC.patch
 
 BuildArch: noarch
 BuildRequires: %{_bindir}/xsltproc
@@ -89,6 +90,7 @@ tools on areas where they were not expected like documentation.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 chmod +x scripts/*
 
@@ -137,6 +139,7 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %changelog
 * Mon Jun 05 2017 Jitka Plesnikova <jplesnik@redhat.com> - 0.47-5
 - Perl 5.26 rebuild
+- Fix building on Perl without '.' in @INC
 
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
