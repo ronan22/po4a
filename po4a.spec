@@ -1,6 +1,6 @@
 Name: po4a
-Version: 0.47
-Release: 5%{?dist}
+Version: 0.51
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -137,6 +137,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Mon Jun 26 2017 Sérgio Basto <sergio@serjux.com> - 0.51-1
+- Update to 0.51 (#1436674)
+
 * Mon Jun 05 2017 Jitka Plesnikova <jplesnik@redhat.com> - 0.47-5
 - Perl 5.26 rebuild
 - Fix building on Perl without '.' in @INC
