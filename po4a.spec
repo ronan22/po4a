@@ -15,7 +15,7 @@ BuildRequires: findutils
 BuildRequires: grep
 # Requires a pod2man which supports --utf8
 # Seemingly added in perl-5.10.1
-BuildRequires: perl >= 4:5.10.1
+BuildRequires: perl-interpreter >= 4:5.10.1
 BuildRequires: perl-generators
 BuildRequires: perl(lib)
 BuildRequires: perl(Encode)
