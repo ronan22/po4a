@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.52
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -56,7 +56,6 @@ BuildRequires: perl(warnings)
 BuildRequires: texlive-kpathsea
 BuildRequires: texlive-kpathsea-bin
 
-# Optional run-time:
 BuildRequires: perl(I18N::Langinfo)
 BuildRequires: perl(Locale::gettext) >= 1.01
 BuildRequires: perl(Term::ReadKey)
@@ -77,10 +76,12 @@ Requires: texlive-kpathsea
 Requires: texlive-kpathsea-bin
 
 # Optional, but package is quite useless without
-# Until have perl-gettext on epel7 ppc64 (rhbz #1196539)
-%if 0%{?rhel} != 7
 Requires: perl(Locale::gettext) >= 1.01
-%endif
+# Optional run-time:
+Requires: perl(I18N::Langinfo)
+Requires: perl(Term::ReadKey)
+Requires: perl(Text::WrapI18N)
+Requires: perl(Unicode::GCString)
 
 %description
 The po4a (po for anything) project goal is to ease translations (and
@@ -135,6 +136,11 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Sat Dec 02 2017 Sérgio Basto <sergio@serjux.com> - 0.52-2
+- Add to Requires all optional run-time perl modules (#1515239)
+- Readd Requires of perl-gettext on epel7 since rhbz #1196539 is fixed but RHEL7.4
+  also already ships poa4 except in ppc64 see rhbz #1497544
+
 * Sun Aug 27 2017 Fedora Release Monitoring  <release-monitoring@fedoraproject.org> - 0.52-1
 - Update to 0.52 (#1485710)
 
