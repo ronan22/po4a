@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.52
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -136,6 +136,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.52-4
+- Escape macros in %%changelog
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
@@ -214,7 +217,7 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 - Spec-file cosmetics.
 
 * Mon Jul 29 2013 Richard W.M. Jones <rjones@redhat.com> - 0.44-9
-- Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
+- Fix bang path /usr/bin/env perl -> %%{_bindir}/perl (RHBZ#987035).
 - Increase verbosity of po4a when building to help diagnose build errors.
 - +BR Pod::Parser.
 - Disable 24-tex.t which does not run and does not produce any
