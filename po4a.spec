@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.52
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.alioth.debian.org/
@@ -136,6 +136,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Sat Dec 02 2017 Sérgio Basto <sergio@serjux.com> - 0.52-2
 - Add to Requires all optional run-time perl modules (#1515239)
 - Readd Requires of perl-gettext on epel7 since rhbz #1196539 is fixed but RHEL7.4
