@@ -3,9 +3,10 @@ Version: 0.52
 Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
-URL: https://po4a.alioth.debian.org/
+URL: https://po4a.org/
 
 Source0: http://ftp.debian.org/debian/pool/main/p/po4a/%{name}_%{version}.orig.tar.gz
+#Source0: https://github.com/mquinson/po4a/archive/v#{version}/#{name}-#{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: %{_bindir}/xsltproc
