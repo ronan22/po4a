@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.52
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -137,6 +137,9 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Thu Jun 28 2018 Jitka Plesnikova <jplesnik@redhat.com> - 0.52-5
 - Perl 5.28 rebuild
 
