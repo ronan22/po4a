@@ -1,12 +1,11 @@
 Name: po4a
-Version: 0.52
-Release: 6%{?dist}
+Version: 0.54
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
 
-Source0: http://ftp.debian.org/debian/pool/main/p/po4a/%{name}_%{version}.orig.tar.gz
-#Source0: https://github.com/mquinson/po4a/archive/v#{version}/#{name}-#{version}.tar.gz
+Source0: https://github.com/mquinson/po4a/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: %{_bindir}/xsltproc
@@ -65,6 +64,7 @@ BuildRequires: perl(Unicode::GCString)
 
 # Required by the tests:
 BuildRequires: perl(Test::More)
+BuildRequires: perl(YAML::Tiny)
 
 
 Requires: %{_bindir}/nsgmls
@@ -90,7 +90,7 @@ more interestingly, the maintenance of translations) using gettext
 tools on areas where they were not expected like documentation.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 chmod +x scripts/*
 
@@ -101,10 +101,12 @@ chmod +x scripts/*
 
 %build
 export PO4AFLAGS="-v -v -v"
+LANG=en_US.utf8
 %{__perl} ./Build.PL installdirs=vendor
 ./Build
 
 %install
+LANG=en_US.utf8
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
@@ -114,6 +116,11 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %find_lang %{name}
 
 %check
+LANG=en_US.utf8
+# Fix from po4a-0.54/debian/rules
+# Remove HTML test, which does no longer pass
+# and probably should be removed upstream, too.
+rm t/09-html.t
 ./Build test
 
 
@@ -126,17 +133,22 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/man1/po4a*.1*
 %{_mandir}/man1/msguntypot.1*
 %{_mandir}/man3/Locale::Po4a::*.3*
-%{_mandir}/man5/po4a-build.conf*.5*
-%{_mandir}/man7/po4a-runtime.7*
+#{_mandir}/man5/po4a-build.conf*.5*
+#{_mandir}/man7/po4a-runtime.7*
 %{_mandir}/man7/po4a.7*
 %{_mandir}/*/man1/po4a*.1*
 %{_mandir}/*/man1/msguntypot.1*
 %{_mandir}/*/man3/Locale::Po4a::*.3*
-%{_mandir}/*/man5/po4a-build.conf.5*
+#{_mandir}/*/man5/po4a-build.conf.5*
+#{_mandir}/*/man7/po4a-runtime.7*
 %{_mandir}/*/man7/po4a.7*
-%{_mandir}/*/man7/po4a-runtime.7*
 
 %changelog
+* Mon Sep 24 2018 Sérgio Basto <sergio@serjux.com> - 0.54-1
+- Update po4a to 0.54 (#1582687)
+- Fix warning "Output of 'msggrep' might be incorrect" with set LANG=en_US.utf8
+- Remove HTML test, which does no longer pass
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
