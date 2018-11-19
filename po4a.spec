@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.54
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -101,12 +101,12 @@ chmod +x scripts/*
 
 %build
 export PO4AFLAGS="-v -v -v"
-LANG=en_US.utf8
+LANG=C.utf8
 %{__perl} ./Build.PL installdirs=vendor
 ./Build
 
 %install
-LANG=en_US.utf8
+LANG=C.utf8
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
@@ -116,7 +116,7 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %find_lang %{name}
 
 %check
-LANG=en_US.utf8
+LANG=C.utf8
 # Fix from po4a-0.54/debian/rules
 # Remove HTML test, which does no longer pass
 # and probably should be removed upstream, too.
@@ -144,6 +144,10 @@ rm t/09-html.t
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Mon Nov 19 2018 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.54-2
+- Use C.UTF-8 locale
+  See https://fedoraproject.org/wiki/Changes/Remove_glibc-langpacks-all_from_buildroot
+
 * Mon Sep 24 2018 Sérgio Basto <sergio@serjux.com> - 0.54-1
 - Update po4a to 0.54 (#1582687)
 - Fix warning "Output of 'msggrep' might be incorrect" with set LANG=en_US.utf8
