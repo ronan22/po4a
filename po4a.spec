@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.54
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -144,6 +144,9 @@ rm t/09-html.t
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Mon Nov 19 2018 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.54-2
 - Use C.UTF-8 locale
   See https://fedoraproject.org/wiki/Changes/Remove_glibc-langpacks-all_from_buildroot
