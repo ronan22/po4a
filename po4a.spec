@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.54
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -144,6 +144,9 @@ rm t/09-html.t
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sat Jun 01 2019 Jitka Plesnikova <jplesnik@redhat.com> - 0.54-4
+- Perl 5.30 rebuild
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
