@@ -1,6 +1,6 @@
 Name: po4a
-Version: 0.54
-Release: 4%{?dist}
+Version: 0.56
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -55,6 +55,7 @@ BuildRequires: perl(warnings)
 # epel7 doesn't have /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 BuildRequires: texlive-kpathsea
 BuildRequires: texlive-kpathsea-bin
+BuildRequires: tex(article.cls)
 
 BuildRequires: perl(I18N::Langinfo)
 BuildRequires: perl(Locale::gettext) >= 1.01
@@ -117,10 +118,6 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 
 %check
 LANG=C.utf8
-# Fix from po4a-0.54/debian/rules
-# Remove HTML test, which does no longer pass
-# and probably should be removed upstream, too.
-rm t/09-html.t
 ./Build test
 
 
@@ -144,6 +141,9 @@ rm t/09-html.t
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sat Jun 08 2019 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.56-1
+- Update to 0.56 (#1718505)
+
 * Sat Jun 01 2019 Jitka Plesnikova <jplesnik@redhat.com> - 0.54-4
 - Perl 5.30 rebuild
 
