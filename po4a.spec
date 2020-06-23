@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.59.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -141,6 +141,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Tue Jun 23 2020 Jitka Plesnikova <jplesnik@redhat.com> - 0.59.1-2
+- Perl 5.32 rebuild
+
 * Mon May 25 2020 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.59.1-1
 - Update to 0.59.1 (#1830920)
 
