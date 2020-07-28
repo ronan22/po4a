@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.60
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -141,6 +141,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Sun Jul 26 2020 Sérgio Basto <sergio@serjux.com> - 0.60-1
 - Update po4a to 0.60 (#1857579)
 
