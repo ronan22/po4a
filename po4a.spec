@@ -1,5 +1,5 @@
 Name: po4a
-Version: 0.62
+Version: 0.63
 Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
@@ -91,14 +91,8 @@ more interestingly, the maintenance of translations) using gettext
 tools on areas where they were not expected like documentation.
 
 %prep
-%setup -q
-
+%autosetup -p1
 chmod +x scripts/*
-
-# Fix bang path /usr/bin/env perl -> %{_bindir}/perl (RHBZ#987035).
-%{__perl} -p -i -e 's,#!\s*/usr/bin/env perl,#!%{_bindir}/perl,' \
-  $(find . -type f -executable |
-    xargs grep -l "/usr/bin/env perl")
 
 %build
 export PO4AFLAGS="-v -v -v"
@@ -139,6 +133,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Tue Feb 23 2021 Sérgio Basto <sergio@serjux.com> - 0.63-1
+- Update po4a to 0.63 (#1905315)
+
 * Tue Feb 16 2021 Sérgio Basto <sergio@serjux.com> - 0.62-1
 - Update po4a to 0.62 (#1905315)
 
