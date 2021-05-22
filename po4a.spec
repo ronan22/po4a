@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.63
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -133,6 +133,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sat May 22 2021 Jitka Plesnikova <jplesnik@redhat.com> - 0.63-2
+- Perl 5.34 rebuild
+
 * Tue Feb 23 2021 Sérgio Basto <sergio@serjux.com> - 0.63-1
 - Update po4a to 0.63 (#1905315)
 
