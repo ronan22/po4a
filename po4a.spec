@@ -1,6 +1,6 @@
 Name: po4a
 Version: 0.63
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -133,6 +133,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Mon Sep 20 2021 Richard W.M. Jones <rjones@redhat.com> - 0.63-4
+- Add gating tests for RHEL 9
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
