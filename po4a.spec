@@ -1,6 +1,6 @@
 Name: po4a
-Version: 0.63
-Release: 4%{?dist}
+Version: 0.64
+Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
 URL: https://po4a.org/
@@ -133,6 +133,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Mon Nov 01 2021 Sérgio Basto <sergio@serjux.com> - 0.64-1
+- Update po4a to 0.64 (#2003502)
+
 * Mon Sep 20 2021 Richard W.M. Jones <rjones@redhat.com> - 0.63-4
 - Add gating tests for RHEL 9
 
