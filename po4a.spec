@@ -1,5 +1,5 @@
 Name: po4a
-Version: 0.64
+Version: 0.65
 Release: 1%{?dist}
 Summary: A tool maintaining translations anywhere
 License: GPL+
@@ -133,6 +133,9 @@ LANG=C.utf8
 %{_mandir}/*/man7/po4a.7*
 
 %changelog
+* Sun Dec 12 2021 Sérgio Basto <sergio@serjux.com> - 0.65-1
+- Update po4a to 0.65 (#2023095)
+
 * Mon Nov 01 2021 Sérgio Basto <sergio@serjux.com> - 0.64-1
 - Update po4a to 0.64 (#2003502)
 
