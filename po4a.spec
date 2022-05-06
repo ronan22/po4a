@@ -8,7 +8,7 @@ URL: https://po4a.org/
 Source0: https://github.com/mquinson/po4a/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
-BuildRequires: %{_bindir}/xsltproc
+BuildRequires: /usr/bin/xsltproc
 BuildRequires: coreutils
 BuildRequires: docbook-style-xsl
 BuildRequires: findutils
@@ -29,7 +29,7 @@ BuildRequires: perl(Module::Build)
 BuildRequires: perl(Pod::Man)
 
 # Run-time:
-BuildRequires: %{_bindir}/nsgmls
+BuildRequires: /usr/bin/nsgmls
 BuildRequires: gettext
 BuildRequires: perl(Carp)
 BuildRequires: perl(Config)
